@@ -1558,7 +1558,7 @@ function dataSection(){
   $("lims").innerHTML = [
     ["Farming is not in the tables", "Official tables do not record pesticide residues, antibiotics, or how a food was farmed or raised, so the scores cannot account for them."],
     ["Tables measure differently", "Fibre and carbohydrate depend on each lab's method. India's IFCT often reports about twice the fibre of USDA and CoFID for the same food."],
-    ["Some values were never measured", `${fmtN(noSug)} foods have no sugar value and ${fmtN(noSat)} have no saturated fat value in their table. We never fill these in, so a missing value earns no points and loses none.`]]
+    ["Gaps in data", `${fmtN(noSug)} foods have no sugar value and ${fmtN(noSat)} have no saturated fat value in their table. We never fill these in, so a missing value earns no points and loses none.`]]
     .map(([h, p]) => `<div><h3>${h}</h3><p>${p}</p></div>`).join("");
   $("legal").textContent = "Independent, non-commercial project. Food data: IFCT 2017 (ICMR-National Institute of Nutrition, via the open ifct2017 package), USDA SR28 (public domain), UK CoFID 2021 (Open Government Licence v3.0), Standard Tables of Food Composition in Japan 2020 (MEXT), Brazilian Food Composition Table TACO 2011 (NEPA-UNICAMP), and West African Food Composition Table 2019 (FAO/INFOODS, CC BY-NC-SA 3.0 IGO). Not endorsed by any of these bodies. General information, not medical advice. Nothing you pick or type is stored.";
 }
