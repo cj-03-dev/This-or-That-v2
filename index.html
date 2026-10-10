@@ -180,9 +180,10 @@ section.blk{padding-block:clamp(56px,8vw,96px) 0}
 .v-title{font-weight:650;font-size:clamp(26px,3.4vw,40px);line-height:1.08;letter-spacing:-.025em;margin-top:8px}
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .tile{position:relative;border-radius:var(--r-md);padding:16px 18px 14px;color:var(--tile-ink);display:grid;gap:6px;min-height:168px;align-content:space-between;overflow:hidden}
-.tile.hi{background:linear-gradient(135deg,var(--hi-a),var(--hi-b))}
-.tile.mid{background:linear-gradient(135deg,var(--mid-a),var(--mid-b))}
-.tile.lo{background:linear-gradient(135deg,var(--lo-a),var(--lo-b))}
+.tile.ta{background:linear-gradient(135deg,#F0FAC4,#C3E874)}
+.tile.tb{background:linear-gradient(135deg,#E6E9FF,#AFB9FF)}
+.tile-side i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:0}
+.tile.ta .tile-side i{background:#4E7A00} .tile.tb .tile-side i{background:#3D4BC4}
 .tile-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .tile-side{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;opacity:.75}
 .tile-name{font-family:var(--f-display);font-weight:600;font-size:16px;line-height:1.2;margin-top:3px;overflow-wrap:anywhere}
@@ -218,9 +219,11 @@ section.blk{padding-block:clamp(56px,8vw,96px) 0}
 .sw{width:12px;height:12px;border-radius:4px;flex:none}
 .sw.a{background:var(--this)} .sw.b{background:var(--that)}
 .nrows{display:grid;gap:4px}
-.nrow{display:grid;grid-template-columns:minmax(110px,170px) minmax(0,1fr) 92px;gap:8px 16px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line)}
+.nrow{display:grid;grid-template-columns:minmax(110px,170px) minmax(0,1fr) 124px;gap:8px 16px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line)}
 .nrow:last-child{border-bottom:0}
 .nl{font-size:14.5px;font-weight:600}
+.nhead{padding:0 0 8px;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.nhead span:last-child{text-align:right}
 .nl small{display:block;font-weight:400;color:var(--ink-3);font-size:12px}
 .nb{display:grid;gap:5px}
 .bar{display:grid;grid-template-columns:minmax(0,1fr) 84px;align-items:center;gap:10px}
@@ -275,8 +278,7 @@ table.dt th{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text
 .swi{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--panel-2)}
 .swi b{font-weight:600;font-size:15px;display:block;overflow-wrap:anywhere}
 .swi small{color:var(--ink-3);font-size:12.5px}
-.sc{display:inline-grid;place-items:center;min-width:46px;height:34px;border-radius:10px;padding:0 8px;font-family:var(--f-dot);font-weight:800;font-size:22px;color:var(--tile-ink)}
-.sc.hi{background:linear-gradient(135deg,var(--hi-a),var(--hi-b))} .sc.mid{background:linear-gradient(135deg,var(--mid-a),var(--mid-b))} .sc.lo{background:linear-gradient(135deg,var(--lo-a),var(--lo-b))}
+.sc{display:inline-grid;place-items:center;min-width:46px;height:34px;border-radius:10px;padding:0 8px;font-family:var(--f-dot);font-weight:800;font-size:22px;color:var(--ink);background:var(--panel);border:1px solid var(--line)}
 .use{border:1px solid var(--line-2);background:transparent;border-radius:999px;padding:7px 12px;font-size:13px;color:var(--ink);white-space:nowrap}
 .use:hover{background:var(--panel)}
 .empty{color:var(--ink-3);font-size:14px;padding:12px 0}
@@ -355,7 +357,7 @@ details.more .in b{color:var(--ink);font-weight:600}
 .ft{margin-top:clamp(56px,8vw,96px);border-top:1px solid var(--line);padding-block:28px 40px}
 .ft-in{display:grid;gap:18px}
 @media (min-width:860px){ .ft-in{grid-template-columns:minmax(0,1fr) auto;align-items:start} }
-.ft p{font-size:13px;color:var(--ink-3);max-width:90ch;line-height:1.6}
+.ft p{font-size:13px;color:var(--ink-3);max-width:none;line-height:1.6}
 .by{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:8px 10px 8px 16px;font-weight:600;text-decoration:none;white-space:nowrap}
 .by svg{width:24px;height:24px;border-radius:6px}
 
@@ -394,6 +396,7 @@ details.more .in b{color:var(--ink);font-weight:600}
   .tile-top{flex-direction:column;gap:6px}
   .badge{order:-1;padding:4px 9px;font-size:11.5px}
   .hbr.wide{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px}
+  .nhead span:nth-child(2){display:none}
   .nrow{grid-template-columns:minmax(0,1fr) 80px}
   .nrow .nb{grid-column:1 / -1;order:3}
   .goals{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -405,6 +408,28 @@ details.more .in b{color:var(--ink);font-weight:600}
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   #loader{display:none}
 }
+
+/* ---------- compact data section ---------- */
+#data .sec-head{gap:6px;margin-bottom:16px}
+#data .sec-head h2{font-size:clamp(26px,3vw,36px)}
+#data .sec-head p{font-size:16px}
+#data .kpis{gap:10px;margin-bottom:10px}
+#data .kpi{padding:14px 18px;gap:4px;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:16px}
+#data .kpi .dot{font-size:clamp(30px,3.2vw,40px)}
+#data .kpi p{font-size:14px}
+#data .grid2{gap:10px}
+#data .dcard{padding:16px 18px;gap:10px}
+#data .dcard h3{font-size:18px}
+#data .dcard .cs{font-size:13px;margin-top:-4px}
+#data .hb{gap:6px}
+#data .hbt,#data .hbt i{height:12px}
+#data .srcs{gap:6px}
+#data .srow{padding:7px 10px}
+#data .srow b{font-size:14px}
+#data .srow small{font-size:12px}
+#data .srow .dot{font-size:22px}
+#data .note{font-size:13px;padding:10px 12px}
+@media (max-width:620px){ #data .kpi{grid-template-columns:minmax(0,1fr)} }
 
 </style>
 </head>
@@ -1035,7 +1060,7 @@ const Globe = (() => {
     cv = $("globe"); ctx = cv.getContext("2d"); if (!ctx) return;
     build();
     const host = $("labels");
-    MARKS.forEach(m => { const d = document.createElement("div"); d.className = "lab"; d.innerHTML = `<b>${m.n}</b><span>${m.s} \u00b7 ${m.c.toLocaleString("en-US")} foods</span>`; host.appendChild(d); m.el = d; });
+    MARKS.forEach(m => { const d = document.createElement("div"); d.className = "lab"; d.innerHTML = `<b>${m.n}</b><span>${m.k}</span>`; host.appendChild(d); m.el = d; });
     layout(); new ResizeObserver(layout).observe(cv.parentElement);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { MARKS.forEach(m => { m.lw = 0; m.lh = 0; }); layout(); });
     new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(cv.parentElement);
@@ -1282,9 +1307,9 @@ const SRC = {
   "TACO 2011": {name:"Brazilian Food Composition Table (TACO), 4th edition", org:"NEPA, State University of Campinas", where:"Brazil", lic:"2011"},
   "WAFCT 2019": {name:"West African Food Composition Table 2019", org:"FAO and INFOODS", where:"West Africa", lic:"CC BY-NC-SA 3.0 IGO"}};
 const MARKS = [
-  {n:"United States", s:"USDA SR28", lat:39.03, lon:-76.93}, {n:"Brazil", s:"TACO 2011", lat:-22.82, lon:-47.07},
-  {n:"West Africa", s:"WAFCT 2019", lat:12.37, lon:-1.52}, {n:"United Kingdom", s:"CoFID 2021", lat:51.51, lon:-0.13},
-  {n:"India", s:"IFCT 2017", lat:17.39, lon:78.49}, {n:"Japan", s:"MEXT 2020", lat:35.68, lon:139.69}];
+  {n:"United States", k:"USDA", lat:39.03, lon:-76.93}, {n:"Brazil", k:"TACO", lat:-22.82, lon:-47.07},
+  {n:"West Africa", k:"WAFCT", lat:12.37, lon:-1.52}, {n:"United Kingdom", k:"CoFID", lat:51.51, lon:-0.13},
+  {n:"India", k:"IFCT", lat:17.39, lon:78.49}, {n:"Japan", k:"MEXT", lat:35.68, lon:139.69}];
 const PAIRS = [["IN172","EU084","Butter or olive oil"],["NA001","GL496","White or wholemeal bread"],["GL084","GL083","Chips or popcorn"],
   ["EU073","EU071","Bacon or smoked salmon"],["GL519","EU005","Cornflakes or oats"],["GL062","EU055","Ice cream or Greek yogurt"],
   ["NA002","NA008","Fries or baked potato"],["IN168","GL001","Paneer or tofu"]];
@@ -1365,7 +1390,7 @@ function gaugeSVG(sa, sb){
   return s + "</svg>";
 }
 function tileHTML(f, r, side, win){
-  return `<div class="tile ${band(r.score)}"><div class="tile-top"><div><div class="tile-side">${side}</div><div class="tile-name">${esc(f.n)}</div></div>` +
+  return `<div class="tile ${side === "This" ? "ta" : "tb"}"><div class="tile-top"><div><div class="tile-side"><i></i>${side}</div><div class="tile-name">${esc(f.n)}</div></div>` +
     (win ? `<span class="badge">${ICON.star}Better choice</span>` : "") + `</div>` +
     `<div><div class="tile-score"><span class="dot num" data-to="${r.score}">${r.score}</span><span>/ 100</span></div><div class="tile-band">${bandName(r.score)} for ${GOALS.find(g => g.k === state.goal).label.toLowerCase()}</div></div></div>`;
 }
@@ -1419,8 +1444,8 @@ function drawNutrients(){
       const pct = need ? `<div class="np"><b>${pctTxt(a, need)}</b><br><b>${pctTxt(b, need)}</b></div>` : `<div class="np"></div>`;
       rows += `<div class="nrow"><div class="nl">${lab}${sub ? `<small>${sub}</small>` : ""}</div><div class="nb">${bar(a, "a")}${bar(b, "b")}</div>${pct}</div>`;
     }
-    $("p-n").innerHTML = head + `<div class="nrows" role="table" aria-label="Nutrients per 100 g, with share of your daily need">${rows}</div>` +
-      `<p class="cs" style="color:var(--ink-3);font-size:13px;margin-top:10px">Right column: share of your own daily need in 100 g (for sodium, of the daily limit).</p>` + viewBtn;
+    $("p-n").innerHTML = head + `<div class="nrows" role="table" aria-label="Nutrients per 100 g, with share of your daily need"><div class="nrow nhead" aria-hidden="true"><span></span><span>Per 100 g</span><span>% of daily need</span></div>${rows}</div>` +
+      viewBtn;
   }
   $("viewT").onclick = () => { state.view = state.view === "chart" ? "table" : "chart"; drawNutrients(); };
 }
@@ -1479,7 +1504,7 @@ function drawSwaps(){
     const f = byId.get(state[side]), other = state[side === "a" ? "b" : "a"], list = Engine.swaps(f, state.goal, P, F.filter(x => x.i !== other));
     $(side === "a" ? "swHA" : "swHB").textContent = `Instead of ${f.n}`;
     $(side === "a" ? "swA" : "swB").innerHTML = list.length ? list.map(o =>
-      `<div class="swi"><span><b>${esc(o.food.n)}</b><small>${esc(o.food.r)} · ${esc(o.food.s)}</small></span><span class="sc ${band(o.score)} num" aria-label="Score ${o.score}">${o.score}</span>` +
+      `<div class="swi"><span><b>${esc(o.food.n)}</b><small>${esc(o.food.r)} · ${esc(o.food.s)}</small></span><span class="sc num" aria-label="Score ${o.score}">${o.score}</span>` +
       `<button class="use" type="button" data-side="${side}" data-id="${o.food.i}" aria-label="Compare with ${esc(o.food.n)}">Use</button></div>`).join("")
       : `<p class="empty">Nothing that does the same job scores clearly higher ${G.win}.</p>`;
   });
@@ -1501,8 +1526,7 @@ function dataSection(){
   const S = SUM, n = S.foods, xa = S.crossdb_agree, xp = S.crossdb_pairs;
   $("kpis").innerHTML = [
     [fmtN(n), `foods from 6 official tables, each value per 100 g`],
-    [fmtN(S.reread_checks), `values re-read from the original files by a separate program: ${S.reread_mismatch} copying errors`],
-    [`${xa}/${xp}`, `comparisons with the same food in another table agree; the other ${xp - xa} differences are explained`]]
+    [fmtN(S.reread_checks), `values re-read from the original files by a separate program: ${S.reread_mismatch} copying errors`]]
     .map(([v, t]) => `<div class="card kpi"><span class="dot num">${v}</span><p>${t}</p></div>`).join("");
   // regions
   const rb = S.by_region_basis, rows = REGIONS.map(r => ({r, e: rb[r + "|eaten"] || 0, s: rb[r + "|source"] || 0})).map(o => ({...o, t: o.e + o.s})).sort((a, b) => b.t - a.t);
@@ -1532,12 +1556,9 @@ function dataSection(){
   // limits
   const noSug = F.filter(f => f.u[Engine.K.sug] == null).length, noSat = F.filter(f => f.u[Engine.K.sat] == null).length;
   $("lims").innerHTML = [
-    ["Per 100 g, as listed", "Values are for 100 g of each food, raw, cooked or as sold, as its table lists it. Real portions differ, and cooking changes values."],
     ["Farming is not in the tables", "Official tables do not record pesticide residues, antibiotics, or how a food was farmed or raised, so the scores cannot account for them."],
-    ["One choice, not your whole diet", "Health comes from your whole diet, sleep, movement and more. A comparison helps with one choice at a time."],
     ["Tables measure differently", "Fibre and carbohydrate depend on each lab's method. India's IFCT often reports about twice the fibre of USDA and CoFID for the same food."],
-    ["Some values were never measured", `${fmtN(noSug)} foods have no sugar value and ${fmtN(noSat)} have no saturated fat value in their table. We never fill these in, so a missing value earns no points and loses none.`],
-    ["Not medical advice", "General information for healthy adults. If you have a health condition, are pregnant, or take medication, ask your doctor."]]
+    ["Some values were never measured", `${fmtN(noSug)} foods have no sugar value and ${fmtN(noSat)} have no saturated fat value in their table. We never fill these in, so a missing value earns no points and loses none.`]]
     .map(([h, p]) => `<div><h3>${h}</h3><p>${p}</p></div>`).join("");
   $("legal").textContent = "Independent, non-commercial project. Food data: IFCT 2017 (ICMR-National Institute of Nutrition, via the open ifct2017 package), USDA SR28 (public domain), UK CoFID 2021 (Open Government Licence v3.0), Standard Tables of Food Composition in Japan 2020 (MEXT), Brazilian Food Composition Table TACO 2011 (NEPA-UNICAMP), and West African Food Composition Table 2019 (FAO/INFOODS, CC BY-NC-SA 3.0 IGO). Not endorsed by any of these bodies. General information, not medical advice. Nothing you pick or type is stored.";
 }
@@ -1571,7 +1592,7 @@ function drawList(){
   const list = search(), cur = state[state.slot];
   $("count").textContent = `${fmtN(list.length)} food${list.length === 1 ? "" : "s"}`;
   $("list").innerHTML = list.slice(0, state.shown).map(f => { const s = scoreOf(f).score;
-    return `<button class="item" type="button" data-id="${f.i}" aria-current="${f.i === cur}"><span><b>${esc(f.n)}</b><small>${esc(f.r)} · ${esc(f.s)}${f.nv === 4 ? " · ultra-processed" : ""}</small></span><span class="sc ${band(s)} num">${s}</span></button>`; }).join("") +
+    return `<button class="item" type="button" data-id="${f.i}" aria-current="${f.i === cur}"><span><b>${esc(f.n)}</b><small>${esc(f.r)} · ${esc(f.s)}${f.nv === 4 ? " · ultra-processed" : ""}</small></span><span class="sc num">${s}</span></button>`; }).join("") +
     (list.length > state.shown ? `<button class="ghost" id="more" type="button">Show more</button>` : "") +
     (list.length ? "" : `<p class="empty">No food matches. Try a shorter word, or another region or food type.</p>`);
 }
@@ -1592,7 +1613,7 @@ function parseHash(){
   } catch (e) {}
 }
 function boot(){
-  setTheme("dark");
+  setTheme("light");
   parseHash();
   $("theme").onclick = () => setTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
   $("pairs").innerHTML = PAIRS.filter(([a, b]) => byId.has(a) && byId.has(b)).map(([a, b, l]) => `<button class="pair" type="button" data-a="${a}" data-b="${b}">${esc(l)}</button>`).join("");
@@ -1633,8 +1654,7 @@ function boot(){
   if (typeof initAsk === "function") initAsk();
   dataSection(); render();
   let gw = 0; new ResizeObserver(() => { const w = $("gauge").clientWidth; if (Math.abs(w - gw) > 8) { gw = w; const A = byId.get(state.a), B = byId.get(state.b); $("gauge").innerHTML = gaugeSVG(scoreOf(A).score, scoreOf(B).score); } }).observe($("gauge"));
-  const marks = MARKS.map(m => ({...m, c: SUM.by_source[m.s] || 0}));
-  Globe.init(marks);
+  Globe.init(MARKS.map(m => ({...m})));
   const ld = $("loader");
   const finish = () => document.body.classList.remove("loading");
   setTimeout(() => { if (ld && ld.isConnected) { ld.remove(); finish(); Globe.go(true); } }, 9000);   // safety net if the intro stalls

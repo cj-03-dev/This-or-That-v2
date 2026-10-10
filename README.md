@@ -13,7 +13,7 @@ Live site: https://cj-03-dev.github.io/This-or-That-v2/
 - A separate model for each goal, with longevity at the core of all of them
 - Fairer to dairy and saturated fat, and ultra-processed foods lose points
 - Better swaps for every food
-- Light and dark mode (dark by default)
+- Light and dark mode (light by default)
 
 ## What it does
 
