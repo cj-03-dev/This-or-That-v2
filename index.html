@@ -1354,7 +1354,7 @@ function drawYou(){
 
 /* ---------- foods and goal ---------- */
 function metaTags(f){
-  return `<span class="tag">${esc(f.r)}</span><span class="tag">${esc(f.s)}</span>` +
+  return `<span class="tag">${esc(f.s)}</span>` +
     `<span class="tag${f.nv === 4 ? " n4" : ""}">${f.nv === 4 ? "Ultra-processed" : NOVA[f.nv]}</span>`;
 }
 function drawPickers(){
