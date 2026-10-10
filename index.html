@@ -71,13 +71,16 @@ body.loading .rise{animation-play-state:paused}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* ---------- header ---------- */
-.hdr{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px 10px}
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:10px 0 14px;background:var(--bg)}
-.navb{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:9px 24px;font-family:var(--f-display);font-weight:600;font-size:15px;color:var(--ink-2);min-height:44px}
+.hdr{display:flex;align-items:center;justify-content:space-between;gap:12px 16px;flex-wrap:wrap;padding-block:16px 12px}
+.hdr-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nav{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.navb{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:8px 18px;font-family:var(--f-display);font-weight:600;font-size:14.5px;color:var(--ink-2);min-height:40px;display:inline-flex;align-items:center;gap:6px}
+.navb-home{padding:8px;width:40px;justify-content:center}
+.navb-home svg{width:19px;height:19px}
 .navb:hover{border-color:var(--line-2);color:var(--ink)}
 .navb[aria-current="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 [hidden]{display:none!important}
-.blk{scroll-margin-top:72px}
+.blk{scroll-margin-top:14px}
 #view-data>.blk,#view-method>.blk{padding-block-start:clamp(16px,2.5vw,26px)}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand svg{width:44px;height:28px;flex:none}
@@ -134,8 +137,12 @@ section.blk{padding-block:clamp(56px,8vw,96px) 0}
 .you-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px}
 .lbl{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
 .age-read{display:flex;align-items:baseline;gap:10px;margin-top:4px}
+.age-in{font-family:var(--f-dot);font-weight:800;line-height:.9;color:var(--ink);background:transparent;border:0;border-bottom:2px dashed var(--line-2);padding:0 2px 2px;width:2.3ch;text-align:left;-moz-appearance:textfield;appearance:textfield}
+.age-in:focus{outline:none;border-bottom-color:var(--accent)}
+.age-in::-webkit-outer-spin-button,.age-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .dot{font-family:var(--f-dot);font-weight:800;letter-spacing:.02em;line-height:.9}
 .age-read .dot{font-size:62px}
+.age-in.dot{font-size:62px}
 .age-read span{color:var(--ink-2);font-size:15px}
 .seg{display:inline-flex;border:1px solid var(--line);background:var(--panel-2);border-radius:999px;padding:4px;gap:4px}
 .seg button{border:0;background:transparent;border-radius:999px;padding:9px 18px;font-weight:600;font-size:15px;color:var(--ink-2);min-height:42px}
@@ -199,7 +206,7 @@ section.blk{padding-block:clamp(56px,8vw,96px) 0}
 .badge svg{width:13px;height:13px}
 .tile-score{display:flex;align-items:baseline;gap:8px}
 .tile-score .dot{font-size:clamp(64px,9vw,96px)}
-.tile-score span{font-family:var(--f-mono);font-size:12px;opacity:.7}
+.tile-score span{font-family:var(--f-mono);font-size:17px;opacity:.75;letter-spacing:.02em}
 .tile-band{font-size:13px;font-weight:600;opacity:.8}
 .gauge{min-width:0}
 .gauge svg{display:block;overflow:visible;max-width:100%}
@@ -402,6 +409,11 @@ details.more .in b{color:var(--ink);font-weight:600}
 #more{margin:12px auto 4px;display:block}
 
 @media (max-width:620px){
+  #themeLbl{display:none}
+  .tbtn{padding:8px;width:40px;justify-content:center;gap:0}
+  .navb{padding:8px 15px}
+  .wm small{display:none}
+
   body{font-size:16px}
   .hero{min-height:auto;padding-bottom:28px;justify-content:flex-start}
   .h-bot{margin-top:clamp(300px,86vw,380px)}
@@ -453,11 +465,18 @@ details.more .in b{color:var(--ink);font-weight:600}
 <noscript><style>#loader{display:none!important}body.loading{overflow:auto}body.loading .rise{animation-play-state:running}</style></noscript>
 <div class="wrap">
   <header class="hdr">
-    <a class="brand" href="#top" aria-label="This or That, Longevity Edition">
+    <a class="brand" href="#top" aria-label="This or That, Longevity Edition, home">
       <svg viewBox="0 0 44 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="var(--this)"/><circle cx="30" cy="14" r="13" fill="var(--that)" fill-opacity=".9"/></svg>
       <span class="wm">This or That<small>Longevity Edition</small></span>
     </a>
-    <div class="hdr-r">
+    <div class="hdr-right">
+      <nav class="nav" aria-label="Pages">
+        <button class="navb navb-home" type="button" data-view="compare" aria-label="Home" title="Home" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11.4 12 4l8 7.4"/><path d="M6 10.2V20h12v-9.8"/></svg>
+        </button>
+        <button class="navb" type="button" data-view="data" aria-current="false">Data</button>
+        <button class="navb" type="button" data-view="method" aria-current="false">Methodology</button>
+      </nav>
       <button class="tbtn" id="theme" type="button" aria-label="Switch to light mode">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
         <span id="themeLbl">Light</span>
@@ -465,12 +484,6 @@ details.more .in b{color:var(--ink);font-weight:600}
       <span class="pill"><i></i>Beta</span>
     </div>
   </header>
-
-  <nav class="nav" aria-label="Pages">
-    <button class="navb" type="button" data-view="compare" aria-current="true">Compare</button>
-    <button class="navb" type="button" data-view="data" aria-current="false">Data</button>
-    <button class="navb" type="button" data-view="method" aria-current="false">Method</button>
-  </nav>
 
   <main>
   <div class="page" id="view-compare">
@@ -503,7 +516,7 @@ details.more .in b{color:var(--ink);font-weight:600}
         <div class="you-row">
           <div>
             <h3 class="lbl" id="youH">You</h3>
-            <div class="age-read"><span class="dot num" id="ageOut">35</span><span>years old</span></div>
+            <div class="age-read"><input class="dot num age-in" id="ageNum" type="number" min="18" max="100" step="1" inputmode="numeric" value="35" aria-label="Your age, 18 to 100"><span>years old</span></div>
           </div>
           <div class="seg" role="group" aria-label="Sex">
             <button type="button" data-sex="F" aria-pressed="true">Female</button>
@@ -621,7 +634,7 @@ details.more .in b{color:var(--ink);font-weight:600}
   <div class="page" id="view-method" hidden>
   <section class="blk" id="method" aria-labelledby="mH">
     <div class="sec-head">
-      <span class="kicker">Method</span>
+      <span class="kicker">Methodology</span>
       <h2 id="mH">How the score works</h2>
       <p>Every score is per 100 g, uses fixed rules, and lists every point it adds or takes away.</p>
     </div>
@@ -1364,7 +1377,8 @@ function drawTicks(){
   $("ticks").innerHTML = s + "</svg>";
 }
 function drawYou(){
-  $("ageOut").textContent = state.age;
+  $("age").value = state.age;
+  if (document.activeElement !== $("ageNum")) $("ageNum").value = state.age;   // don't fight the user while they type
   document.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.sex === state.sex)));
   const top = P.pri.slice().sort((a, b) => b.w - a.w).filter(q => q.w >= 1).map(q => NLAB[q.k]);
   const rest = P.pri.filter(q => q.w < 1).map(q => NLAB[q.k]);
@@ -1516,6 +1530,7 @@ function setView(v){
   page = v;
   ["compare", "data", "method"].forEach(k => { const el = $("view-" + k); if (el) el.hidden = k !== v; });
   document.querySelectorAll(".navb").forEach(b => b.setAttribute("aria-current", String(b.dataset.view === v)));
+  const home = document.querySelector(".navb-home"); if (home) home.hidden = v === "compare";   // home icon only off the home page
   try { history.replaceState(null, "", v === "compare" ? `#${state.a}-${state.b}-${state.goal}` : `#${v}`); } catch (e) {}
   window.scrollTo(0, 0);
 }
@@ -1635,6 +1650,16 @@ function boot(){
   let raf = 0;
   $("age").value = state.age;
   $("age").addEventListener("input", e => { state.age = +e.target.value; cancelAnimationFrame(raf); raf = requestAnimationFrame(render); });
+  $("ageNum").value = state.age;
+  $("ageNum").addEventListener("input", e => {   // render only once it is a valid 18 to 100 number, so typing "72" is not clamped to 18 mid-way
+    const v = parseInt(e.target.value, 10);
+    if (!Number.isFinite(v) || v < 18 || v > 100) return;
+    state.age = v; cancelAnimationFrame(raf); raf = requestAnimationFrame(render);
+  });
+  $("ageNum").addEventListener("change", e => {   // on blur or Enter, clamp whatever is left
+    const v = Math.max(18, Math.min(100, parseInt(e.target.value, 10) || 18));
+    state.age = v; e.target.value = v; render();
+  });
   $("pickA").onclick = () => openSheet("a"); $("pickB").onclick = () => openSheet("b");
   document.querySelector(".tabs").onclick = e => { const t = e.target.closest(".tab"); if (t) { state.tab = t.dataset.t; drawTab(); } };
   document.querySelector(".tabs").onkeydown = e => {
