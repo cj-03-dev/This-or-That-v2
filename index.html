@@ -71,7 +71,14 @@ body.loading .rise{animation-play-state:paused}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* ---------- header ---------- */
-.hdr{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px 14px}
+.hdr{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px 10px}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:10px 0 14px;background:var(--bg)}
+.navb{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:9px 24px;font-family:var(--f-display);font-weight:600;font-size:15px;color:var(--ink-2);min-height:44px}
+.navb:hover{border-color:var(--line-2);color:var(--ink)}
+.navb[aria-current="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+[hidden]{display:none!important}
+.blk{scroll-margin-top:72px}
+#view-data>.blk,#view-method>.blk{padding-block-start:clamp(16px,2.5vw,26px)}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand svg{width:44px;height:28px;flex:none}
 .wm{font-family:var(--f-display);font-weight:700;font-size:21px;line-height:1;letter-spacing:-.02em}
@@ -204,7 +211,14 @@ section.blk{padding-block:clamp(56px,8vw,96px) 0}
 .reasons li.me .ic{background:var(--that-soft);color:var(--info)}
 .reasons li .ic svg{width:16px;height:16px}
 .reasons li small{display:block;color:var(--ink-3);font-size:12.5px;margin-top:2px}
-.v-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.v-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:flex-start}
+.detail-wrap{margin-top:14px;overflow:hidden}
+.detail-sum{cursor:pointer;list-style:none;padding:17px 20px;font-family:var(--f-display);font-weight:600;font-size:16px;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--ink)}
+.detail-sum::-webkit-details-marker{display:none}
+.detail-sum::after{content:"+";font-family:var(--f-mono);color:var(--ink-3);font-size:20px;line-height:1}
+.detail-wrap[open] .detail-sum::after{content:"\2212"}
+.detail-wrap[open] .detail-sum{border-bottom:1px solid var(--line)}
+.detail-wrap .detail{margin-top:0}
 .v-foot p{font-size:13.5px;color:var(--ink-3);max-width:70ch}
 .ghost{border:1px solid var(--line);background:transparent;border-radius:999px;padding:9px 16px;font-size:14px;color:var(--ink-2);display:inline-flex;gap:8px;align-items:center;min-height:42px}
 .ghost:hover{border-color:var(--line-2);color:var(--ink)}
@@ -452,6 +466,14 @@ details.more .in b{color:var(--ink);font-weight:600}
     </div>
   </header>
 
+  <nav class="nav" aria-label="Pages">
+    <button class="navb" type="button" data-view="compare" aria-current="true">Compare</button>
+    <button class="navb" type="button" data-view="data" aria-current="false">Data</button>
+    <button class="navb" type="button" data-view="method" aria-current="false">Method</button>
+  </nav>
+
+  <main>
+  <div class="page" id="view-compare">
   <section class="hero" id="top" aria-label="This or That, Longevity Edition">
     <canvas id="globe" aria-hidden="true"></canvas>
     <div class="labels" id="labels" aria-hidden="true"></div>
@@ -473,7 +495,7 @@ details.more .in b{color:var(--ink);font-weight:600}
     <div class="sec-head">
       <span class="kicker">Compare</span>
       <h2 id="cmpH">Which is better for you?</h2>
-      <p>Pick 2 foods, then choose the goal. The verdict comes straight from official nutrition data, with the source shown.</p>
+      <p>Set your age and sex, pick 2 foods, then choose the goal. The verdict comes straight from official nutrition data.</p>
     </div>
 
     <div class="console">
@@ -515,46 +537,50 @@ details.more .in b{color:var(--ink);font-weight:600}
         <span class="chg">Change</span>
       </button>
     </div>
-    <div class="popular" aria-label="Popular comparisons"><span class="lbl">Popular</span><span id="pairs" style="display:contents"></span></div>
 
     <div class="card verdict" aria-live="polite">
-      <div>
-        <p class="v-eyebrow" id="vEye"></p>
-        <h3 class="v-title" id="vTitle"></h3>
-      </div>
+      <h3 class="v-title" id="vTitle"></h3>
       <div class="tiles" id="tiles"></div>
-      <div class="gauge" id="gauge"></div>
       <ul class="reasons" id="reasons"></ul>
       <div class="v-foot">
-        <p id="vNote"></p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="ghost" id="flip" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>Swap sides</button>
-          <button class="ghost" id="share" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span>Copy link</span></button>
-        </div>
+        <button class="ghost" id="share" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span>Copy link</span></button>
       </div>
-    </div>
-
-    <div class="card detail">
-      <div class="tabs" role="tablist" aria-label="Details">
-        <button class="tab" role="tab" type="button" id="t-n" aria-selected="true" aria-controls="p-n" data-t="n">Nutrients</button>
-        <button class="tab" role="tab" type="button" id="t-s" aria-selected="false" aria-controls="p-s" data-t="s">How the score is built</button>
-        <button class="tab" role="tab" type="button" id="t-c" aria-selected="false" aria-controls="p-c" data-t="c">Source and checks</button>
-      </div>
-      <div role="tabpanel" id="p-n" aria-labelledby="t-n"></div>
-      <div role="tabpanel" id="p-s" aria-labelledby="t-s" hidden></div>
-      <div role="tabpanel" id="p-c" aria-labelledby="t-c" hidden></div>
     </div>
 
     <div class="card swaps">
-      <div class="swaps-h"><h3>Better swaps</h3><p id="swNote">Foods that do the same job in a meal, with a higher score for this goal.</p></div>
+      <div class="swaps-h"><h3>Better alternatives</h3><p id="swNote">Foods that do the same job in a meal, with a higher score for this goal.</p></div>
       <div class="swcols">
         <div class="swcol"><h4><i class="sw a"></i><span id="swHA"></span></h4><div class="swlist" id="swA"></div></div>
         <div class="swcol"><h4><i class="sw b"></i><span id="swHB"></span></h4><div class="swlist" id="swB"></div></div>
       </div>
     </div>
+
+    <details class="card detail-wrap" id="detailWrap">
+      <summary class="detail-sum">See full details: nutrients, how the score is built, sources</summary>
+      <div class="detail">
+        <div class="tabs" role="tablist" aria-label="Details">
+          <button class="tab" role="tab" type="button" id="t-n" aria-selected="true" aria-controls="p-n" data-t="n">Nutrients</button>
+          <button class="tab" role="tab" type="button" id="t-s" aria-selected="false" aria-controls="p-s" data-t="s">How the score is built</button>
+          <button class="tab" role="tab" type="button" id="t-c" aria-selected="false" aria-controls="p-c" data-t="c">Source and checks</button>
+        </div>
+        <div role="tabpanel" id="p-n" aria-labelledby="t-n"></div>
+        <div role="tabpanel" id="p-s" aria-labelledby="t-s" hidden></div>
+        <div role="tabpanel" id="p-c" aria-labelledby="t-c" hidden></div>
+      </div>
+    </details>
     
   </section>
 
+  <section class="blk" id="limits" aria-labelledby="lH">
+    <div class="sec-head">
+      <span class="kicker">Limits</span>
+      <h2 id="lH">What this cannot tell you</h2>
+    </div>
+    <div class="lims" id="lims"></div>
+  </section>
+  </div>
+
+  <div class="page" id="view-data" hidden>
   <section class="blk" id="data" aria-labelledby="dataH">
     <div class="sec-head">
       <span class="kicker">The data</span>
@@ -590,7 +616,9 @@ details.more .in b{color:var(--ink);font-weight:600}
       </article>
     </div>
   </section>
+  </div>
 
+  <div class="page" id="view-method" hidden>
   <section class="blk" id="method" aria-labelledby="mH">
     <div class="sec-head">
       <span class="kicker">Method</span>
@@ -606,14 +634,9 @@ details.more .in b{color:var(--ink);font-weight:600}
       <article class="card mcard"><h3>Why not a single-food index?</h3><p>Food Compass scores single foods and was linked to lower risk of death, but it needs details official tables do not hold, such as additives and specific processing steps. So the site keeps the diet pattern with the strongest evidence at its core and borrows only what official data can support.</p><p class="ref">Mozaffarian et al., Nature Food, 2021; O'Hearn et al., Nature Communications, 2022</p></article>
     </div>
   </section>
+  </div>
 
-  <section class="blk" id="limits" aria-labelledby="lH">
-    <div class="sec-head">
-      <span class="kicker">Limits</span>
-      <h2 id="lH">What this cannot tell you</h2>
-    </div>
-    <div class="lims" id="lims"></div>
-  </section>
+  </main>
 </div>
 
 <footer class="ft">
@@ -960,7 +983,9 @@ const Globe = (() => {
   function slerp(a, b, t){ const d = Math.max(-1, Math.min(1, a[0]*b[0] + a[1]*b[1] + a[2]*b[2])), om = Math.acos(d), so = Math.sin(om) || 1e-6; const k1 = Math.sin((1-t)*om)/so, k2 = Math.sin(t*om)/so; return [a[0]*k1 + b[0]*k2, a[1]*k1 + b[1]*k2, a[2]*k1 + b[2]*k2]; }
   function layout(){
     const host = cv.parentElement, r = host.getBoundingClientRect(); DPR = Math.min(devicePixelRatio || 1, 2);
-    W = r.width; H = r.height; cv.width = Math.round(W*DPR); cv.height = Math.round(H*DPR);
+    W = r.width; H = r.height;
+    if (W < 2 || H < 2) { vis = false; return; }   // hero on a hidden page: skip, nothing to draw
+    cv.width = Math.round(W*DPR); cv.height = Math.round(H*DPR);
     buildSky();
     const top = $("hTop").getBoundingClientRect().bottom - r.top, bot = $("hBot").getBoundingClientRect().top - r.top;
     if (W >= 900) { R = Math.min(H*.36, W*.23, 330); cx = W*.73; cy = H*.5; }
@@ -1270,8 +1295,8 @@ const $ = id => document.getElementById(id);
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const F = DATA.foods, byId = new Map(F.map(f => [f.i, f])), SUM = DATA.summary;
-const norm = s => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
-F.forEach(f => { f._n = norm(f.n); f._s = norm(f.n + " " + f.y + " " + f.g + " " + (/[぀-ヿ一-鿿]/.test(f.sn) ? "" : f.sn)); });
+const norm = s => (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+F.forEach(f => { f._n = norm(f.n); f._s = norm(f.n + " " + f.y + " " + f.g + " " + (/[\u3040-\u30ff\u4e00-\u9fff]/.test(f.sn) ? "" : f.sn)); });
 const fmtN = x => Number(x).toLocaleString("en-US");
 const nf = (x, d = 1) => x == null ? null : (Math.abs(x) >= 100 ? Math.round(x).toLocaleString("en-US") : String(Math.round(x * 10 ** d) / 10 ** d));
 const bare = n => n.replace(/\s*\(.*?\)\s*/g, " ").replace(/,.*$/, "").trim();
@@ -1361,7 +1386,6 @@ function drawPickers(){
   const A = byId.get(state.a), B = byId.get(state.b);
   $("nmA").textContent = A.n; $("nmB").textContent = B.n;
   $("mtA").innerHTML = metaTags(A); $("mtB").innerHTML = metaTags(B);
-  $("pairs").querySelectorAll(".pair").forEach(p => p.setAttribute("aria-current", String(p.dataset.a === state.a && p.dataset.b === state.b)));
 }
 function drawGoals(){
   $("goals").innerHTML = GOALS.map(g => `<button class="goal" type="button" data-k="${g.k}" aria-pressed="${g.k === state.goal}">${ICON[g.k]}<b>${g.label}</b><span>${g.sub}</span></button>`).join("");
@@ -1369,27 +1393,6 @@ function drawGoals(){
 }
 
 /* ---------- verdict ---------- */
-function gaugeSVG(sa, sb){
-  const Wd = Math.max(280, Math.round($("gauge").clientWidth || 640)), pad = 14, x = v => pad + v * (Wd - 2 * pad) / 100;
-  const A = byId.get(state.a), B = byId.get(state.b), step = Wd < 520 ? 5 : 2;
-  let s = `<svg viewBox="0 0 ${Wd} 108" width="${Wd}" height="108" role="img" aria-label="${esc(`Scores on a 0 to 100 scale: ${A.n} ${sa}, ${B.n} ${sb}`)}">`;
-  const lo = Math.min(sa, sb), hi = Math.max(sa, sb);
-  for (let v = 0; v <= 100; v += step) {
-    const maj = v % 10 === 0, inside = v >= lo && v <= hi;
-    s += `<rect x="${(x(v) - .9).toFixed(1)}" y="${maj ? 50 : 58}" width="1.8" height="${maj ? 24 : 12}" rx=".9" fill="${inside ? "var(--ink-2)" : "var(--line-2)"}"/>`;
-    if (maj && (Wd >= 420 || v % 20 === 0)) s += `<text x="${x(v).toFixed(1)}" y="90" text-anchor="middle">${v}</text>`;
-  }
-  s += `<text x="${x(20).toFixed(1)}" y="105" text-anchor="middle">Low</text><text x="${x(55).toFixed(1)}" y="105" text-anchor="middle">Medium</text><text x="${x(85).toFixed(1)}" y="105" text-anchor="middle">High</text>`;
-  const close = Math.abs(sa - sb) < (Wd < 520 ? 30 : 14);
-  [[sa, "var(--this)", "This", sa >= sb ? 1 : -1], [sb, "var(--that)", "That", sb > sa ? 1 : -1]].forEach(([v, col, lab, dir]) => {
-    const X = x(v), anchor = close ? (dir > 0 ? "start" : "end") : "middle";
-    const tx = Math.min(Wd - 4, Math.max(4, close ? X + dir * 9 : X));
-    s += `<line x1="${X.toFixed(1)}" x2="${X.toFixed(1)}" y1="30" y2="78" stroke="${col}" stroke-width="3" stroke-linecap="round"/>`;
-    s += `<circle cx="${X.toFixed(1)}" cy="30" r="6" fill="${col}" stroke="var(--panel)" stroke-width="2"/>`;
-    s += `<text class="gl" x="${tx.toFixed(1)}" y="18" text-anchor="${!close && X < 40 ? "start" : (!close && X > Wd - 40 ? "end" : anchor)}">${lab} ${v}</text>`;
-  });
-  return s + "</svg>";
-}
 function tileHTML(f, r, side, win){
   return `<div class="tile ${side === "This" ? "ta" : "tb"}"><div class="tile-top"><div><div class="tile-side"><i></i>${side}</div><div class="tile-name">${esc(f.n)}</div></div>` +
     (win ? `<span class="badge">${ICON.star}Better choice</span>` : "") + `</div>` +
@@ -1408,18 +1411,14 @@ function countUp(){
 }
 function drawVerdict(cmp){
   const A = byId.get(state.a), B = byId.get(state.b), G = GOALS.find(g => g.k === state.goal);
-  $("vEye").textContent = `${G.label} · for a ${who(P)} · per 100 g`;
   const W = cmp.winner === "a" ? A : (cmp.winner === "b" ? B : null);
   $("vTitle").textContent = W ? `${W.n} wins ${G.win}` : `A tie ${G.win}: both score ${cmp.a.score}`;
   $("tiles").innerHTML = tileHTML(A, cmp.a, "This", cmp.winner === "a") + tileHTML(B, cmp.b, "That", cmp.winner === "b");
   countUp();
-  $("gauge").innerHTML = gaugeSVG(cmp.a.score, cmp.b.score);
-  const rs = cmp.reasons.length ? cmp.reasons : [{t: W ? "Small differences add up to the higher score. See how the score is built below." : "Their strengths and weaknesses balance out for this goal."}];
+  const rs = cmp.reasons.length ? cmp.reasons : [{t: W ? "Small differences add up to the higher score. See the full details for every point." : "Their strengths and weaknesses balance out for this goal."}];
   $("reasons").innerHTML = rs.map(r => r.personal
     ? `<li class="me"><span class="ic">${ICON.me}</span><span>${esc(r.t)}<small>For a ${esc(who(P))}</small></span></li>`
     : `<li><span class="ic">${ICON.ok}</span><span>${esc(r.t)}</span></li>`).join("");
-  const st = f => `${f.n}, ${f.st.toLowerCase().replace(" / ", " or ")}`;
-  $("vNote").textContent = `Per 100 g as each table lists it: ${st(A)}; ${st(B)}. General information, not medical advice.`;
 }
 
 /* ---------- details ---------- */
@@ -1502,13 +1501,23 @@ function drawSwaps(){
   const G = GOALS.find(g => g.k === state.goal);
   $("swNote").textContent = `Foods that do the same job in a meal, with a higher score ${G.win}.`;
   ["a", "b"].forEach(side => {
-    const f = byId.get(state[side]), other = state[side === "a" ? "b" : "a"], list = Engine.swaps(f, state.goal, P, F.filter(x => x.i !== other));
+    const f = byId.get(state[side]), other = state[side === "a" ? "b" : "a"], list = Engine.swaps(f, state.goal, P, F.filter(x => x.i !== other), 2);
     $(side === "a" ? "swHA" : "swHB").textContent = `Instead of ${f.n}`;
     $(side === "a" ? "swA" : "swB").innerHTML = list.length ? list.map(o =>
-      `<div class="swi"><span><b>${esc(o.food.n)}</b><small>${esc(o.food.r)} · ${esc(o.food.s)}</small></span><span class="sc num" aria-label="Score ${o.score}">${o.score}</span>` +
+      `<div class="swi"><span><b>${esc(o.food.n)}</b><small>${esc(o.food.s)}</small></span><span class="sc num" aria-label="Score ${o.score}">${o.score}</span>` +
       `<button class="use" type="button" data-side="${side}" data-id="${o.food.i}" aria-label="Compare with ${esc(o.food.n)}">Use</button></div>`).join("")
       : `<p class="empty">Nothing that does the same job scores clearly higher ${G.win}.</p>`;
   });
+}
+
+/* ---------- pages ---------- */
+let page = "compare";
+function setView(v){
+  page = v;
+  ["compare", "data", "method"].forEach(k => { const el = $("view-" + k); if (el) el.hidden = k !== v; });
+  document.querySelectorAll(".navb").forEach(b => b.setAttribute("aria-current", String(b.dataset.view === v)));
+  try { history.replaceState(null, "", v === "compare" ? `#${state.a}-${state.b}-${state.goal}` : `#${v}`); } catch (e) {}
+  window.scrollTo(0, 0);
 }
 
 /* ---------- render ---------- */
@@ -1519,7 +1528,7 @@ function render(){
   const cmp = Engine.compare(A, B, state.goal, P);
   drawYou(); drawGoals(); drawPickers(); drawVerdict(cmp); drawTab(); drawSwaps();
   clearTimeout(hashTimer);
-  hashTimer = setTimeout(() => { try { history.replaceState(null, "", `#${state.a}-${state.b}-${state.goal}`); } catch (e) {} }, 300);
+  hashTimer = setTimeout(() => { if (page === "compare") { try { history.replaceState(null, "", `#${state.a}-${state.b}-${state.goal}`); } catch (e) {} } }, 300);
 }
 
 /* ---------- data section ---------- */
@@ -1609,6 +1618,8 @@ function setTheme(t){
 function parseHash(){
   try {
     const h = decodeURIComponent(location.hash || "");
+    if (h === "#data") { page = "data"; return; }
+    if (h === "#method") { page = "method"; return; }
     let m = /^#([A-Z]{2}\d{3})-([A-Z]{2}\d{3})-([LWPX])$/.exec(h) || /#c=([A-Z]{2}\d{3}),([A-Z]{2}\d{3}),([LWPX])/.exec(h);
     if (m && byId.has(m[1]) && byId.has(m[2]) && m[1] !== m[2]) { state.a = m[1]; state.b = m[2]; state.goal = m[3]; }
   } catch (e) {}
@@ -1617,22 +1628,21 @@ function boot(){
   setTheme("light");
   parseHash();
   $("theme").onclick = () => setTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
-  $("pairs").innerHTML = PAIRS.filter(([a, b]) => byId.has(a) && byId.has(b)).map(([a, b, l]) => `<button class="pair" type="button" data-a="${a}" data-b="${b}">${esc(l)}</button>`).join("");
-  $("pairs").onclick = e => { const p = e.target.closest(".pair"); if (!p) return; state.a = p.dataset.a; state.b = p.dataset.b; render(); };
+  document.querySelector(".nav").onclick = e => { const b = e.target.closest(".navb"); if (b) setView(b.dataset.view); };
+  document.querySelector(".brand").onclick = e => { e.preventDefault(); setView("compare"); };
   $("goals").onclick = e => { const b = e.target.closest(".goal"); if (b) { state.goal = b.dataset.k; render(); } };
   document.querySelector(".seg").onclick = e => { const b = e.target.closest("button"); if (b) { state.sex = b.dataset.sex; render(); } };
   let raf = 0;
   $("age").value = state.age;
   $("age").addEventListener("input", e => { state.age = +e.target.value; cancelAnimationFrame(raf); raf = requestAnimationFrame(render); });
   $("pickA").onclick = () => openSheet("a"); $("pickB").onclick = () => openSheet("b");
-  $("flip").onclick = () => { [state.a, state.b] = [state.b, state.a]; lastScores = {}; render(); };
   document.querySelector(".tabs").onclick = e => { const t = e.target.closest(".tab"); if (t) { state.tab = t.dataset.t; drawTab(); } };
   document.querySelector(".tabs").onkeydown = e => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
     const ks = ["n", "s", "c"], i = ks.indexOf(state.tab), j = (i + (e.key === "ArrowRight" ? 1 : 2)) % 3;
     state.tab = ks[j]; drawTab(); $("t-" + ks[j]).focus();
   };
-  document.querySelector(".swcols").onclick = e => { const b = e.target.closest(".use"); if (!b) return; state[b.dataset.side] = b.dataset.id; render(); $("compare").scrollIntoView({behavior: reduced ? "auto" : "smooth"}); };
+  document.querySelector(".swcols").onclick = e => { const b = e.target.closest(".use"); if (!b) return; state[b.dataset.side] = b.dataset.id; render(); $("compare").scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"}); };
   let inFrame = true; try { inFrame = window.self !== window.top; } catch (e) {}
   if (!inFrame && navigator.clipboard && location.protocol.startsWith("http")) {
     const sb = $("share"); sb.hidden = false;
@@ -1651,13 +1661,16 @@ function boot(){
     if (it.dataset.id === other) { state.b = state.a; state.a = other; }   // picking the other side's food swaps them
     state[state.slot] = it.dataset.id; closeSheet(); render();
   };
-  document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => $(b.dataset.go).scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"}));
+  document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => {
+    if (b.dataset.go === "data") { setView("data"); return; }
+    setView("compare"); $("compare").scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"});
+  });
   if (typeof initAsk === "function") initAsk();
   dataSection(); render();
-  let gw = 0; new ResizeObserver(() => { const w = $("gauge").clientWidth; if (Math.abs(w - gw) > 8) { gw = w; const A = byId.get(state.a), B = byId.get(state.b); $("gauge").innerHTML = gaugeSVG(scoreOf(A).score, scoreOf(B).score); } }).observe($("gauge"));
+  const wanted = page;   // parseHash may have set data/method; apply after the intro so the globe handoff still has the hero
   Globe.init(MARKS.map(m => ({...m})));
   const ld = $("loader");
-  const finish = () => document.body.classList.remove("loading");
+  const finish = () => { document.body.classList.remove("loading"); if (wanted !== "compare") setView(wanted); };
   setTimeout(() => { if (ld && ld.isConnected) { ld.remove(); finish(); Globe.go(true); } }, 9000);   // safety net if the intro stalls
   if (reduced || !ld || !ld.querySelector("canvas").getContext) { if (ld) ld.remove(); finish(); Globe.go(false); }
   else Loader.run({ pose: Globe.pose, onHandoff: r => { Globe.setRot(r); Globe.go(true); }, onReveal: finish });
