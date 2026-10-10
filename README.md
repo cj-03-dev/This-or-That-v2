@@ -20,7 +20,7 @@ Live site: https://cj-03-dev.github.io/This-or-That-v2/
 - Compares any 2 foods for 4 goals: longevity, weight loss, protein, and before a workout
 - Shows a clear winner, scores out of 100, and up to 3 plain reasons (for example "More fibre: 7 g vs 2.7 g")
 - Shows every nutrient per 100 g with the share of your own daily need, how each score was built, and where each value came from
-- Suggests better swaps: foods that do the same job in a meal and score higher for your goal
+- Suggests better alternatives that score higher for your goal
 - Search understands everyday names such as palak, dahi, natto and feijoada
 - Stores nothing: no accounts, no cookies, no tracking
 

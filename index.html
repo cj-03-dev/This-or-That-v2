@@ -137,8 +137,10 @@ section.blk{padding-block:clamp(56px,8vw,96px) 0}
 .you-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px}
 .lbl{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
 .age-read{display:flex;align-items:baseline;gap:10px;margin-top:4px}
-.age-in{font-family:var(--f-dot);font-weight:800;line-height:.9;color:var(--ink);background:transparent;border:0;border-bottom:2px dashed var(--line-2);padding:0 2px 2px;width:2.3ch;text-align:left;-moz-appearance:textfield;appearance:textfield}
-.age-in:focus{outline:none;border-bottom-color:var(--accent)}
+.age-in{font-family:var(--f-dot);font-weight:800;line-height:.9;color:var(--ink);background:transparent;border:0;border-radius:14px;padding:0 6px;margin-left:-6px;width:calc(2.3ch + 12px);transition:background .2s;text-align:left;-moz-appearance:textfield;appearance:textfield}
+.age-in:hover{background:var(--panel-2)}
+.age-in:focus{outline:none;background:var(--panel-2);box-shadow:0 0 0 2px var(--accent)}
+.age-hint{font-size:13px;color:var(--ink-3);margin-top:-2px}
 .age-in::-webkit-outer-spin-button,.age-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .dot{font-family:var(--f-dot);font-weight:800;letter-spacing:.02em;line-height:.9}
 .age-read .dot{font-size:62px}
@@ -376,12 +378,17 @@ details.more .in b{color:var(--ink);font-weight:600}
 .lims p{color:var(--ink-2);font-size:14.5px}
 
 /* ---------- footer ---------- */
-.ft{margin-top:clamp(56px,8vw,96px);border-top:1px solid var(--line);padding-block:28px 40px}
-.ft-in{display:grid;gap:18px}
-@media (min-width:860px){ .ft-in{grid-template-columns:minmax(0,1fr) auto;align-items:start} }
-.ft p{font-size:13px;color:var(--ink-3);max-width:none;line-height:1.6}
-.by{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:8px 10px 8px 16px;font-weight:600;text-decoration:none;white-space:nowrap}
-.by svg{width:24px;height:24px;border-radius:6px}
+.ft{margin-top:clamp(56px,8vw,96px);padding-block:0 36px}
+.ft-in{display:grid;gap:0}
+.ft-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-block:22px 18px;border-top:1px solid var(--line)}
+.by{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-size:17px;font-weight:400;color:var(--ink-2);letter-spacing:-.01em}
+.by b{font-weight:600;color:var(--ink)}
+.by svg{width:20px;height:20px;border-radius:5px;transition:transform .2s}
+.by:hover svg{transform:translateY(-1px) scale(1.06)}
+.ft-legal{display:grid;gap:8px;padding-top:16px;border-top:1px solid var(--line)}
+.ft-legal p{font-family:var(--f-body);font-size:13px;line-height:1.7;color:var(--ink-3);max-width:110ch}
+.ft-legal i{font-style:normal;color:var(--line-2);margin-inline:6px}
+.ft-k{font-weight:600;color:var(--ink-2);margin-right:8px}
 
 /* ---------- picker sheet ---------- */
 #sheet{position:fixed;inset:0;z-index:60;display:none}
@@ -458,6 +465,88 @@ details.more .in b{color:var(--ink);font-weight:600}
 #data .note{font-size:13px;padding:10px 12px}
 @media (max-width:620px){ #data .kpi{grid-template-columns:minmax(0,1fr)} }
 
+/* ==========================================================================
+   Soft dashboard pass: frosted white cards on cool grey, light display type,
+   glowing mesh gradient score tiles with white dot numerals, lime pills.
+   ========================================================================== */
+:root{--tick-on:var(--accent);--glass:rgba(28,29,25,.55);--glass-line:rgba(255,255,255,.08)}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#ECECEE; --bg-2:#E4E4E7; --panel:#FFFFFF; --panel-2:#F4F4F6; --line:#E3E3E7; --line-2:#CDCDD3;
+    --ink:#121316; --ink-2:#4A4D55; --ink-3:#80838C; --tick-on:#121316;
+    --shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 1px 2px rgba(18,19,22,.04), 0 12px 24px -12px rgba(18,19,22,.08), 0 32px 64px -32px rgba(18,19,22,.16);
+    --glass:rgba(255,255,255,.62); --glass-line:rgba(255,255,255,.85);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#ECECEE; --bg-2:#E4E4E7; --panel:#FFFFFF; --panel-2:#F4F4F6; --line:#E3E3E7; --line-2:#CDCDD3;
+  --ink:#121316; --ink-2:#4A4D55; --ink-3:#80838C; --tick-on:#121316;
+  --shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 1px 2px rgba(18,19,22,.04), 0 12px 24px -12px rgba(18,19,22,.08), 0 32px 64px -32px rgba(18,19,22,.16);
+  --glass:rgba(255,255,255,.62); --glass-line:rgba(255,255,255,.85);
+}
+body{background:
+  radial-gradient(900px 600px at 8% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+  radial-gradient(800px 600px at 105% 30%, color-mix(in srgb, var(--that) 10%, transparent), transparent 70%),
+  var(--bg);background-attachment:fixed}
+
+/* light, airy type */
+.sec-head h2{font-weight:400;letter-spacing:-.04em}
+.v-title{font-weight:420;letter-spacing:-.035em}
+.swaps-h h3,.lims h3{font-weight:500;letter-spacing:-.02em}
+.pname,.tile-name,.goal b,.detail-sum{font-weight:500}
+.wm{font-weight:600}
+.h-title{font-weight:600}
+
+/* cards: frosted, soft 3D */
+.card{border:1px solid var(--glass-line);border-radius:28px;background:linear-gradient(180deg,var(--panel),color-mix(in srgb,var(--panel) 92%,var(--bg)))}
+
+/* glassy pills */
+.navb,.tbtn,.pill{background:var(--glass);border-color:var(--glass-line);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 6px 18px -10px rgba(18,19,22,.25)}
+.navb[aria-current="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill i{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent),0 0 12px var(--accent)}
+.seg{background:var(--panel-2);border-color:transparent;box-shadow:inset 0 1px 2px rgba(18,19,22,.06)}
+.seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 2px rgba(18,19,22,.08),0 6px 14px -8px rgba(18,19,22,.3)}
+.chip{background:var(--panel-2);border-color:transparent}
+.chip i{box-shadow:0 0 8px var(--accent)}
+.goal{border-color:transparent;transition:transform .2s,box-shadow .2s}
+.goal:hover{transform:translateY(-1px)}
+.goal[aria-pressed="true"]{background:linear-gradient(160deg,#E4FA86,var(--accent));border-color:transparent;box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 10px 24px -12px color-mix(in srgb,var(--accent) 90%,#556b00)}
+.ruler input::-webkit-slider-thumb{background:var(--accent);box-shadow:0 0 0 1px var(--line-2),0 0 16px color-mix(in srgb,var(--accent) 80%,transparent)}
+
+/* score tiles: blurred mesh gradients, white dot numerals with glow */
+.tile{color:#fff;min-height:186px;isolation:isolate;box-shadow:0 1px 0 rgba(255,255,255,.45) inset,0 -18px 40px -20px rgba(0,0,0,.18) inset}
+.tile::before{content:"";position:absolute;inset:-30%;z-index:-1;filter:blur(28px);pointer-events:none}
+.tile::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.22),transparent 45%);pointer-events:none}
+.tile.ta{background:#3FAE5A;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 22px 44px -20px rgba(50,160,70,.7)}
+.tile.ta::before{background:
+  radial-gradient(38% 42% at 88% 22%, #FFB25C, transparent 100%),
+  radial-gradient(50% 55% at 18% 88%, #138A48, transparent 100%),
+  radial-gradient(60% 60% at 45% 40%, #8ED43E, transparent 100%),
+  #46B556}
+.tile.tb{background:#4E62F0;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 22px 44px -20px rgba(70,90,230,.65)}
+.tile.tb::before{background:
+  radial-gradient(38% 42% at 88% 22%, #FF9A70, transparent 100%),
+  radial-gradient(50% 55% at 18% 88%, #2236C9, transparent 100%),
+  radial-gradient(60% 60% at 45% 40%, #8F9CFF, transparent 100%),
+  #5466F2}
+.tile .tile-side,.tile .tile-band,.tile-score span{opacity:.88}
+.tile.ta .tile-side i,.tile.tb .tile-side i{background:#fff;box-shadow:0 0 10px #fff}
+.tile-score .dot{color:#fff;text-shadow:0 0 18px rgba(255,255,255,.55),0 0 2px rgba(255,255,255,.8)}
+
+/* score chips in lists */
+.sc{border-color:transparent;background:var(--panel-2)}
+.tile .badge{background:#D9F75E;color:#11140A;box-shadow:0 0 0 3px rgba(255,255,255,.25),0 6px 16px -6px rgba(0,0,0,.35)}
+.tile::after{background:linear-gradient(180deg,rgba(255,255,255,.14),transparent 70%)}
+.tile-score{white-space:nowrap;gap:6px}
+.tile-score span:not(.dot){font-size:15px}
+.reasons li,.swi{border-color:transparent;border-radius:16px}
+.reasons li .ic{border-radius:50%;background:color-mix(in srgb,var(--accent) 45%,transparent);color:#2F5A00}
+.reasons li.me .ic{background:var(--that-soft)}
+.swi{transition:transform .2s,box-shadow .2s}
+.swi:hover{transform:translateY(-1px);box-shadow:0 10px 22px -14px rgba(18,19,22,.3)}
+.lims .card,.lims>div{border-radius:22px}
+@media (max-width:620px){ .tile-score .dot{font-size:52px} .tile-score span:not(.dot){font-size:13px} }
+
 </style>
 </head>
 <body class="loading">
@@ -481,7 +570,6 @@ details.more .in b{color:var(--ink);font-weight:600}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
         <span id="themeLbl">Light</span>
       </button>
-      <span class="pill"><i></i>Beta</span>
     </div>
   </header>
 
@@ -517,6 +605,7 @@ details.more .in b{color:var(--ink);font-weight:600}
           <div>
             <h3 class="lbl" id="youH">You</h3>
             <div class="age-read"><input class="dot num age-in" id="ageNum" type="number" min="18" max="100" step="1" inputmode="numeric" value="35" aria-label="Your age, 18 to 100"><span>years old</span></div>
+            <p class="age-hint">Type or slide to set your age</p>
           </div>
           <div class="seg" role="group" aria-label="Sex">
             <button type="button" data-sex="F" aria-pressed="true">Female</button>
@@ -561,7 +650,7 @@ details.more .in b{color:var(--ink);font-weight:600}
     </div>
 
     <div class="card swaps">
-      <div class="swaps-h"><h3>Better alternatives</h3><p id="swNote">Foods that do the same job in a meal, with a higher score for this goal.</p></div>
+      <div class="swaps-h"><h3>Better alternatives</h3></div>
       <div class="swcols">
         <div class="swcol"><h4><i class="sw a"></i><span id="swHA"></span></h4><div class="swlist" id="swA"></div></div>
         <div class="swcol"><h4><i class="sw b"></i><span id="swHB"></span></h4><div class="swlist" id="swB"></div></div>
@@ -654,9 +743,12 @@ details.more .in b{color:var(--ink);font-weight:600}
 
 <footer class="ft">
   <div class="wrap ft-in">
-    <p id="legal"></p>
-    <a class="by" href="https://www.linkedin.com/in/cj-ceo-vm/" target="_blank" rel="noopener">By Chirag Joshi
-      <svg viewBox="0 0 24 24" aria-label="LinkedIn"><rect width="24" height="24" rx="5" fill="#0A66C2"/><path fill="#fff" d="M7.1 9.6h2.3V17H7.1zM8.25 6a1.33 1.33 0 1 1 0 2.66 1.33 1.33 0 0 1 0-2.66zM10.9 9.6h2.2v1h.03c.31-.58 1.06-1.2 2.19-1.2 2.34 0 2.78 1.54 2.78 3.55V17h-2.3v-3.6c0-.86-.02-1.96-1.2-1.96-1.2 0-1.38.94-1.38 1.9V17h-2.3z"/></svg></a>
+    <div class="ft-row">
+      <a class="by" href="https://www.linkedin.com/in/cj-ceo-vm/" target="_blank" rel="noopener"><span>By <b>Chirag Joshi</b></span>
+        <svg viewBox="0 0 24 24" aria-label="LinkedIn"><rect width="24" height="24" rx="5" fill="#0A66C2"/><path fill="#fff" d="M7.1 9.6h2.3V17H7.1zM8.25 6a1.33 1.33 0 1 1 0 2.66 1.33 1.33 0 0 1 0-2.66zM10.9 9.6h2.2v1h.03c.31-.58 1.06-1.2 2.19-1.2 2.34 0 2.78 1.54 2.78 3.55V17h-2.3v-3.6c0-.86-.02-1.96-1.2-1.96-1.2 0-1.38.94-1.38 1.9V17h-2.3z"/></svg></a>
+      <span class="pill"><i></i>Beta</span>
+    </div>
+    <div class="ft-legal" id="legal"></div>
   </div>
 </footer>
 
@@ -1372,7 +1464,7 @@ function drawTicks(){
   let s = '<svg viewBox="0 0 820 44" preserveAspectRatio="none" aria-hidden="true">';
   for (let a = 18; a <= 100; a++) {
     const x = (a - 18) / 82 * 820, major = a % 10 === 0 || a === 18, on = a <= state.age;
-    s += `<rect x="${x - .9}" y="${major ? 6 : 14}" width="1.8" height="${major ? 32 : 16}" rx=".9" fill="${on ? "var(--accent)" : "var(--line-2)"}" opacity="${on ? (major ? 1 : .75) : (major ? 1 : .8)}"/>`;
+    s += `<rect x="${x - .9}" y="${major ? 6 : 14}" width="1.8" height="${major ? 32 : 16}" rx=".9" fill="${on ? "var(--tick-on)" : "var(--line-2)"}" opacity="${on ? (major ? 1 : .75) : (major ? 1 : .8)}"/>`;
   }
   $("ticks").innerHTML = s + "</svg>";
 }
@@ -1513,7 +1605,6 @@ function drawTab(){
 /* ---------- swaps ---------- */
 function drawSwaps(){
   const G = GOALS.find(g => g.k === state.goal);
-  $("swNote").textContent = `Foods that do the same job in a meal, with a higher score ${G.win}.`;
   ["a", "b"].forEach(side => {
     const f = byId.get(state[side]), other = state[side === "a" ? "b" : "a"], list = Engine.swaps(f, state.goal, P, F.filter(x => x.i !== other), 2);
     $(side === "a" ? "swHA" : "swHB").textContent = `Instead of ${f.n}`;
@@ -1585,7 +1676,8 @@ function dataSection(){
     ["Tables measure differently", "Fibre and carbohydrate depend on each lab's method. India's IFCT often reports about twice the fibre of USDA and CoFID for the same food."],
     ["Gaps in data", `${fmtN(noSug)} foods have no sugar value and ${fmtN(noSat)} have no saturated fat value in their table. We never fill these in, so a missing value earns no points and loses none.`]]
     .map(([h, p]) => `<div><h3>${h}</h3><p>${p}</p></div>`).join("");
-  $("legal").textContent = "Independent, non-commercial project. Food data: IFCT 2017 (ICMR-National Institute of Nutrition, via the open ifct2017 package), USDA SR28 (public domain), UK CoFID 2021 (Open Government Licence v3.0), Standard Tables of Food Composition in Japan 2020 (MEXT), Brazilian Food Composition Table TACO 2011 (NEPA-UNICAMP), and West African Food Composition Table 2019 (FAO/INFOODS, CC BY-NC-SA 3.0 IGO). Not endorsed by any of these bodies. General information, not medical advice. Nothing you pick or type is stored.";
+  $("legal").innerHTML = `<p><span class="ft-k">Food data</span>IFCT 2017, ICMR-National Institute of Nutrition (via the open ifct2017 package) <i>/</i> USDA SR28 (public domain) <i>/</i> UK CoFID 2021 (Open Government Licence v3.0) <i>/</i> Standard Tables of Food Composition in Japan 2020 (MEXT) <i>/</i> Brazilian Food Composition Table TACO 2011 (NEPA-UNICAMP) <i>/</i> West African Food Composition Table 2019 (FAO/INFOODS, CC BY-NC-SA 3.0 IGO)</p>` +
+    `<p>Independent, non-commercial project, not endorsed by any of these bodies. General information, not medical advice. Nothing you pick or type is stored.</p>`;
 }
 
 /* ---------- picker ---------- */
