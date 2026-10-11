@@ -1464,6 +1464,7 @@ let P = Engine.profile(state.age, state.sex), cache = new Map();
 function scoreOf(f, g = state.goal){ const key = f.i + g; let r = cache.get(key); if (!r) { r = Engine.score(f, g, P); cache.set(key, r); } return r; }
 
 /* ---------- you ---------- */
+function sizeAge(){ const el = $("ageNum"); el.style.width = `calc(${Math.max(2, String(el.value).length) + .3}ch + 12px)`; }
 function drawTicks(){
   let s = '<svg viewBox="0 0 820 44" preserveAspectRatio="none" aria-hidden="true">';
   for (let a = 18; a <= 100; a++) {
@@ -1475,6 +1476,7 @@ function drawTicks(){
 function drawYou(){
   $("age").value = state.age;
   if (document.activeElement !== $("ageNum")) $("ageNum").value = state.age;   // don't fight the user while they type
+  sizeAge();
   document.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.sex === state.sex)));
   const top = P.pri.slice().sort((a, b) => b.w - a.w).filter(q => q.w >= 1).map(q => NLAB[q.k]);
   const rest = P.pri.filter(q => q.w < 1).map(q => NLAB[q.k]);
@@ -1747,6 +1749,7 @@ function boot(){
   $("age").value = state.age;
   $("age").addEventListener("input", e => { state.age = +e.target.value; cancelAnimationFrame(raf); raf = requestAnimationFrame(render); });
   $("ageNum").value = state.age;
+  $("ageNum").addEventListener("input", sizeAge);
   $("ageNum").addEventListener("input", e => {   // render only once it is a valid 18 to 100 number, so typing "72" is not clamped to 18 mid-way
     const v = parseInt(e.target.value, 10);
     if (!Number.isFinite(v) || v < 18 || v > 100) return;
