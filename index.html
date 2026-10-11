@@ -546,6 +546,10 @@ body{background:
 .swi:hover{transform:translateY(-1px);box-shadow:0 10px 22px -14px rgba(18,19,22,.3)}
 .lims .card,.lims>div{border-radius:22px}
 @media (max-width:620px){ .tile-score .dot{font-size:52px} .tile-score span:not(.dot){font-size:13px} }
+/* picker filters: never squashed, no scrollbars; wrap on wider screens, swipe on phones */
+.filters{flex:none;scrollbar-width:none;-ms-overflow-style:none}
+.filters::-webkit-scrollbar{display:none}
+.filters{-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent);padding-right:24px}
 
 </style>
 </head>
@@ -1768,6 +1772,7 @@ function boot(){
   }
   $("closeSheet").onclick = closeSheet; $("scrim").onclick = closeSheet;
   document.addEventListener("keydown", e => { if (e.key === "Escape" && $("sheet").classList.contains("open")) closeSheet(); });
+  document.querySelectorAll(".filters").forEach(f => f.addEventListener("wheel", e => { if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && f.scrollWidth > f.clientWidth) { f.scrollLeft += e.deltaY; e.preventDefault(); } }, { passive: false }));
   $("regions").onclick = e => { const b = e.target.closest(".fb"); if (b) { state.region = b.dataset.r; state.shown = 60; drawFilters(); drawList(); } };
   $("cats").onclick = e => { const b = e.target.closest(".fb"); if (b) { state.cat = b.dataset.c; state.shown = 60; drawFilters(); drawList(); } };
   $("q").addEventListener("input", () => { state.shown = 60; drawList(); $("list").scrollTop = 0; });
